@@ -21,3 +21,13 @@ test('Given user data when create user should save in database', async () => {
   const user = await User.findById(response.body._id)
   expect(user).not.toBeNull()
 })
+
+test('Given user data when create user should not save plain password', async () => {
+  const response = await request(app)
+    .post('/users')
+    .send(userOne)
+    .expect(201)
+
+  const user = await User.findById(response.body._id)
+  expect(user.password).not.toEqual(userOne.password)
+})
