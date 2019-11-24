@@ -33,12 +33,25 @@ test('Given user with taken email when create user should not registered', async
     .expect(400)
 })
 
-test('Given credentials when login should be logged in', async () => {
+test('Given credentials when login should return token', async () => {
+  const response = await request(app)
+    .post('/users/login')
+    .send({
+      username: userZero.username,
+      password: userZero.password
+    })
+    .expect(200)
+
+  const user = await User.findById(response.body.user._id)
+  expect(user.tokens.length).toBe(1)
+})
+
+test('Given invalid credentials when login should not return token', async () => {
   await request(app)
     .post('/users/login')
     .send({
-      username: userOne.username,
-      password: userOne.password
+      username: 'username',
+      password: 'password'
     })
-    .expect(200)
+    .expect(400)
 })
