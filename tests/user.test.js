@@ -1,6 +1,6 @@
 const request = require('supertest')
 const app = require('../src/app')
-const { userZero, userOne, setupDatabase } = require('./fixtures/db')
+const { userZeroId, userZero, userOne, setupDatabase } = require('./fixtures/db')
 const User = require('../src/models/user')
 
 
@@ -43,7 +43,7 @@ test('Given credentials when login should return token', async () => {
     .expect(200)
 
   const user = await User.findById(response.body.user._id)
-  expect(user.tokens.length).toBe(1)
+  expect(user.tokens.length).toBe(2)
 })
 
 test('Given invalid credentials when login should not return token', async () => {
@@ -54,4 +54,12 @@ test('Given invalid credentials when login should not return token', async () =>
       password: 'password'
     })
     .expect(400)
+})
+
+test('Given auth token when read profile should return user profile', async () => {
+  await request(app)
+    .get('/users/me')
+    .set('Authorization', `Bearer ${userZero.tokens[0].token}`)
+    .send()
+    .expect(200)
 })

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const userService = require('../services/user/index')
+const auth = require('../middleware/auth')
 
 router.post('/users', async (req, res) => {
   try {
@@ -18,6 +19,10 @@ router.post('/users/login', async (req, res) => {
   } catch (e) {
     res.status(400).send(e)
   }
+})
+
+router.get('/users/me', auth, async (req, res) => {
+  res.status(200).send(req.user)
 })
 
 module.exports = router

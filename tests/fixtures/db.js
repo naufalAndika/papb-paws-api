@@ -1,10 +1,15 @@
 const User = require('../../src/models/user')
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
+const userZeroId = new mongoose.Types.ObjectId()
 const userZero = {
+  _id: userZeroId,
   name: 'Dhaffa',
   email: 'dhaffa@example.com',
   username: 'dhaffa',
-  password: 'dhaffa'
+  password: 'dhaffa',
+  tokens: [{ token: jwt.sign({ _id: userZeroId }, process.env.JWT_SECRET) }]
 }
 
 const userOne = {
@@ -22,5 +27,6 @@ const setupDatabase = async () => {
 module.exports = {
   setupDatabase,
   userOne,
-  userZero
+  userZero,
+  userZeroId
 }
