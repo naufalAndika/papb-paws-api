@@ -32,3 +32,13 @@ test('Given user with taken email when create user should not registered', async
     .send(userZero)
     .expect(400)
 })
+
+test('Given credentials when login should be logged in', async () => {
+  await request(app)
+    .post('/users/login')
+    .send({
+      username: userOne.username,
+      password: userOne.password
+    })
+    .expect(200)
+})
