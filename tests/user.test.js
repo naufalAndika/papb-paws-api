@@ -63,3 +63,10 @@ test('Given auth token when read profile should return user profile', async () =
     .send()
     .expect(200)
 })
+
+test('Given nothing when read profile should not return user profile', async () => {
+  await request(app)
+    .get('/users/me')
+    .send()
+    .expect(401)
+})
