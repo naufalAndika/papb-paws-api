@@ -11,4 +11,13 @@ router.post('/users', async (req, res) => {
   } 
 })
 
+router.post('/users/login', async (req, res) => {
+  try {
+    const response = await userService.login(req.body.username, req.body.password)
+    res.status(200).send(response)
+  } catch (e) {
+    res.status(400).send(e)
+  }
+})
+
 module.exports = router

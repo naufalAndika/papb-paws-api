@@ -51,6 +51,36 @@ const userSchema = mongoose.Schema({
   timestamps: true
 })
 
+userSchema.statics.findByUsername = async (username) => {
+  const user = await User.findOne({ username })
+  if (!user) {
+    throw new Error('Unable to login!')
+  }
+
+  return user
+}
+
+userSchema.methods.matchPassword = async function (password) {
+  const user = this
+  const isMatch = await bcrypt.compare(password, user.password)
+  if (!isMatch) {
+    throw new Error('Unable to login!')
+  }
+
+  return user
+}
+
+userSchema.methods.generateToken = async function () {
+  const user = this
+  return jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
+}
+
+userSchema.methods.addToken = async function (token) {
+  const user = this
+  user.tokens = user.tokens.concat({ token })
+  await user.save()
+}
+
 userSchema.pre('save', async function (next) {
   const user = this
   if (user.isModified('password')) {
