@@ -1,14 +1,8 @@
 const request = require('supertest')
 const app = require('../src/app')
-const { setupDatabase } = require('./fixtures/db')
+const { userOne, setupDatabase } = require('./fixtures/db')
 const User = require('../src/models/user')
 
-const userOne = {
-  name: 'Naufal Andika',
-  email: 'andikaa@example.com',
-  username: 'naufalandika',
-  password: 'nopalnopal'
-}
 
 beforeEach(setupDatabase)
 
