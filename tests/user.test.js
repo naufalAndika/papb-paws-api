@@ -1,6 +1,6 @@
 const request = require('supertest')
 const app = require('../src/app')
-const { userOne, setupDatabase } = require('./fixtures/db')
+const { userZero, userOne, setupDatabase } = require('./fixtures/db')
 const User = require('../src/models/user')
 
 
@@ -24,4 +24,11 @@ test('Given user data when create user should not save plain password', async ()
 
   const user = await User.findById(response.body._id)
   expect(user.password).not.toEqual(userOne.password)
+})
+
+test('Given user with taken email when create user should not registered', async () => {
+  const response = await request(app)
+    .post('/users')
+    .send(userZero)
+    .expect(400)
 })
