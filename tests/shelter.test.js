@@ -15,3 +15,12 @@ test('Given shelter data when create shelter should create new shelter', async (
   const shelter = await Shelter.findById(shelterOneId)
   expect(shelter).not.toBeNull()
 })
+
+test('Should return shelter list', async () => {
+  const response = await request(app)
+    .get('/shelters')
+    .send()
+    .expect(200)
+
+  expect(response.body.length).toEqual(1)
+})
