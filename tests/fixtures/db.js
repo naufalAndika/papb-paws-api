@@ -35,7 +35,6 @@ const shelterOneId = new mongoose.Types.ObjectId()
 const shelterOne = {
   _id: shelterOneId,
   name: 'Penitipan Kucing FTP',
-  owner: userZeroId,
   location: {
     lat: -7.952781,
     long: 112.615176
