@@ -33,3 +33,10 @@ test('Given shelter id when get shelter detail should return shelter detail', as
   
   expect(response.body._id).toEqual(shelterZeroId.toString())
 })
+
+test('Given invalid shelter id when get shelter detail should return not found', async () => {
+  await request(app)
+    .get('/shelters/5ddb2b31dc82781948c112b1')
+    .send()
+    .expect(404)
+})
