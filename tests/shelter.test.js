@@ -26,8 +26,10 @@ test('Should return shelter list', async () => {
 })
 
 test('Given shelter id when get shelter detail should return shelter detail', async () => {
-  await request(app)
+  const response = await request(app)
     .get(`/shelters/${shelterZeroId}`)
     .send()
     .expect(200)
+  
+  expect(response.body._id).toEqual(shelterZeroId.toString())
 })
