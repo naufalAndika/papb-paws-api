@@ -24,3 +24,10 @@ test('Should return shelter list', async () => {
 
   expect(response.body.length).toEqual(1)
 })
+
+test('Given shelter id when get shelter detail should return shelter detail', async () => {
+  await request(app)
+    .get(`/shelters/${shelterZeroId}`)
+    .send()
+    .expect(200)
+})
