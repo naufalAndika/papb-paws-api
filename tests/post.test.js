@@ -14,11 +14,23 @@ const postZero = {
 
 beforeEach(setupDatabase)
 
+test('Given unauthorized user when create post should return unauthorized', async () => {
+  await request(app)
+    .post('/posts')
+    .field('desc', postZero.desc)
+    .field('sex', postZero.sex)
+    .field('foundAt', JSON.stringify(postZero.foundAt))
+    .attach('photo', 'tests/fixtures/kucing.jpg')
+    .expect(401)
+})
+
 test('Given post data when create post should create a new post', async () => {
   await request(app)
     .post('/posts')
     .set('Authorization', `Bearer ${userZero.tokens[0].token}`)
+    .field('desc', postZero.desc)
+    .field('sex', postZero.sex)
+    .field('foundAt', JSON.stringify(postZero.foundAt))
     .attach('photo', 'tests/fixtures/kucing.jpg')
-    .send(postZero)
     .expect(201)
 })
