@@ -74,4 +74,11 @@ test('Should return post list', async () => {
     .expect(200)
 
   expect(response.body.length).toEqual(1)
- })
+})
+
+test('Should adopt post', async () => {
+  await request(app)
+    .post('/posts/:id/adopt')
+    .send()
+    .expect(200)
+})
