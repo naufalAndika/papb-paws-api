@@ -1,6 +1,6 @@
 const app = require('../src/app')
 const request = require('supertest')
-const { setupDatabase, userZero, userZeroId, postZero, postOneId } = require('./fixtures/db')
+const { setupDatabase, userZero, userZeroId, postZero, postOneId, shelterZeroId } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
@@ -90,4 +90,14 @@ test('Given invalid id when adopt should return not found', async () => {
     .post('/posts/5ddb2b31dc82781948c120b1/adopt')
     .send()
     .expect(404)
+})
+
+test('Given shelter id should set post location', async () => {
+  await request(app)
+    .patch(`/posts/${postOneId}`)
+    .set('Authorization', `Bearer ${userZero.tokens[0].token}`)
+    .send({
+      location: shelterZeroId 
+    })
+    .expect(200)
 })
