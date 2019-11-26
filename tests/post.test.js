@@ -68,8 +68,10 @@ test('Given invalid id when get post detail should return not found', async () =
 })
 
 test('Should return post list', async () => {
-  await request(app)
+  const response = await request(app)
     .get('/posts')
     .send()
     .expect(200)
-})
+
+  expect(response.body.length).toEqual(1)
+ })
