@@ -47,3 +47,16 @@ test('Given post data when create post should create a new post with user owner'
 
   expect(response.body.owner._id).toEqual(userZeroId.toString())
 })
+
+test('Given json foundAt object when create data should become js object in post', async () => {
+  const response = await request(app)
+    .post('/posts')
+    .set('Authorization', `Bearer ${userZero.tokens[0].token}`)
+    .field('desc', postZero.desc)
+    .field('sex', postZero.sex)
+    .field('foundAt', JSON.stringify(postZero.foundAt))
+    .attach('photo', 'tests/fixtures/kucing.jpg')
+    .expect(201)
+
+  expect(response.body.foundAt).toEqual(postZero.foundAt)
+})
