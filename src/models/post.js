@@ -23,12 +23,8 @@ const postSchema = mongoose.Schema({
     ref: 'User'
   },
   location: {
-    lat: {
-      type: String
-    },
-    long: {
-      type: String
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Shelter'
   },
   adopted: {
     type: Boolean,
