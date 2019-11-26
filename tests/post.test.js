@@ -59,3 +59,10 @@ test('Given id when get post detail should return post detail', async () => {
 
   expect(response.body._id).toEqual(postOneId.toString())
 })
+
+test('Given invalid id when get post detail should return not found', async () => {
+  await request(app)
+    .get('/posts/5ddb2b31dc82781948c120b1')
+    .send()
+    .expect(404)  
+})
