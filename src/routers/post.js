@@ -23,6 +23,12 @@ router.post('/posts', auth, upload.single('photo'), async (req, res) => {
 router.get('/posts/:id', async (req, res) => {
   try {
     const response = await postService.findById(req.params.id)
+    const notFound = response === null
+
+    if (notFound) {
+      res.status(404).send()
+    }
+
     res.status(200).send(response)
   } catch (e) {
     res.status(500).send()
