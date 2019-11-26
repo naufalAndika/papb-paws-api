@@ -44,4 +44,13 @@ router.get('/posts', async (req, res) => {
   }
 })
 
+router.post('/posts/:id/adopt', async (req, res) => {
+  try {
+    const response = await postService.adopt(req.params.id)
+    res.status(200).send(response)
+  } catch (e) {
+    res.status(500).send()
+  }
+})
+
 module.exports = router

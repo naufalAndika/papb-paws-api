@@ -78,7 +78,7 @@ test('Should return post list', async () => {
 
 test('Should adopt post', async () => {
   await request(app)
-    .post('/posts/:id/adopt')
+    .post(`/posts/${postOneId}/adopt`)
     .send()
     .expect(200)
 })

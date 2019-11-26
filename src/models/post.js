@@ -30,13 +30,19 @@ const postSchema = mongoose.Schema({
       type: String
     }
   },
-  adpoted: {
+  adopted: {
     type: Boolean,
     default: false
   }
 }, {
   timestamps: true
 })
+
+postSchema.methods.adopt = async function () {
+  const post = this
+  post.adopted = true
+  await post.save()
+}
 
 const Post = mongoose.model('Post', postSchema)
 
