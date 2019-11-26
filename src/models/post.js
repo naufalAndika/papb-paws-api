@@ -40,6 +40,12 @@ postSchema.methods.adopt = async function () {
   await post.save()
 }
 
+postSchema.methods.setLocation = async function (location) {
+  const post = this
+  post.location = location
+  await post.save()
+}
+
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post
