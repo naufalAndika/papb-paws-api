@@ -29,6 +29,10 @@ const postSchema = mongoose.Schema({
     long: {
       type: String
     }
+  },
+  adpoted: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

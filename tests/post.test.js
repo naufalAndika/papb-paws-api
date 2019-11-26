@@ -1,16 +1,6 @@
 const app = require('../src/app')
 const request = require('supertest')
-const Post = require('../src/models/post')
-const { setupDatabase, userZero, userZeroId } = require('./fixtures/db')
-
-const postZero = {
-  desc: 'Kucing ini ditemukan di depan toko kue. Berwarna hijau army, sehat, manja, dan suka makan.',
-  sex: 0,
-  foundAt: {
-    lat: -7.955820,
-    long: 112.615991
-  }
-}
+const { setupDatabase, userZero, userZeroId, postZero, postZeroId } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
@@ -58,8 +48,12 @@ test('Given json foundAt object when create data should become js object in post
     .attach('photo', 'tests/fixtures/kucing.jpg')
     .expect(201)
 
-  console.log(response.body.foundAt);
-  
-
   expect(response.body.foundAt).toEqual(postZero.foundAt)
+})
+
+test('Given id when get post detail should return post detail', async () => {
+  await request(app)
+    .get(`/posts/${postZeroId}`)
+    .send()
+    .expect(200)
 })

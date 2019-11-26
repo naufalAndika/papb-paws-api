@@ -41,6 +41,17 @@ const shelterOne = {
   }
 }
 
+const postZeroId = new mongoose.Types.ObjectId()
+const postZero = {
+  _id: postZeroId,
+  desc: 'Kucing ini ditemukan di depan toko kue. Berwarna hijau army, sehat, manja, dan suka makan.',
+  sex: 0,
+  foundAt: {
+    lat: -7.955820,
+    long: 112.615991
+  }
+}
+
 const setupDatabase = async () => {
   await User.deleteMany()
   await Shelter.deleteMany()
@@ -56,5 +67,7 @@ module.exports = {
   shelterZeroId,
   shelterZero,
   shelterOneId,
-  shelterOne
+  shelterOne,
+  postZero,
+  postZeroId
 }
