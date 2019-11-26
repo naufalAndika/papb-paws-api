@@ -93,11 +93,13 @@ test('Given invalid id when adopt should return not found', async () => {
 })
 
 test('Given shelter id should set post location', async () => {
-  await request(app)
+  const response = await request(app)
     .patch(`/posts/${postOneId}`)
     .set('Authorization', `Bearer ${userZero.tokens[0].token}`)
     .send({
       location: shelterZeroId 
     })
     .expect(200)
+
+  expect(response.body.location).toEqual(shelterZeroId.toString())
 })
