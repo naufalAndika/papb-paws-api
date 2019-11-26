@@ -58,5 +58,8 @@ test('Given json foundAt object when create data should become js object in post
     .attach('photo', 'tests/fixtures/kucing.jpg')
     .expect(201)
 
+  console.log(response.body.foundAt);
+  
+
   expect(response.body.foundAt).toEqual(postZero.foundAt)
 })

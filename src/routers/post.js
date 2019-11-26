@@ -10,6 +10,7 @@ router.post('/posts', auth, upload.single('photo'), async (req, res) => {
     photo: req.file.buffer,
     owner: req.user
   }
+  data.foundAt = JSON.parse(data.foundAt)
 
   try {
     const response = await postService.create(data)
