@@ -1,6 +1,6 @@
 const app = require('../src/app')
 const request = require('supertest')
-const { setupDatabase, userZero, userZeroId, postZero, postZeroId } = require('./fixtures/db')
+const { setupDatabase, userZero, userZeroId, postZero, postOneId } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
@@ -52,8 +52,10 @@ test('Given json foundAt object when create data should become js object in post
 })
 
 test('Given id when get post detail should return post detail', async () => {
-  await request(app)
-    .get(`/posts/${postZeroId}`)
+  const response = await request(app)
+    .get(`/posts/${postOneId}`)
     .send()
-    .expect(200)
+    .expect(200)  
+
+  expect(response.body._id).toEqual(postOneId.toString())
 })

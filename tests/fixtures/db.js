@@ -1,5 +1,6 @@
 const User = require('../../src/models/user')
 const Shelter = require ('../../src/models/shelter')
+const Post = require('../../src/models/post')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
@@ -41,9 +42,7 @@ const shelterOne = {
   }
 }
 
-const postZeroId = new mongoose.Types.ObjectId()
 const postZero = {
-  _id: postZeroId,
   desc: 'Kucing ini ditemukan di depan toko kue. Berwarna hijau army, sehat, manja, dan suka makan.',
   sex: 0,
   foundAt: {
@@ -52,11 +51,24 @@ const postZero = {
   }
 }
 
+const postOneId = new mongoose.Types.ObjectId()
+const postOne = {
+  _id: postOneId,
+  desc: 'Kucing ini ditemukan di depan toko rambutan. Berwarna hitam putih, sehat, manja, dan suka makan.',
+  sex: 0,
+  foundAt: {
+    lat: -7.956720,
+    long: 112.625091
+  }
+}
+
 const setupDatabase = async () => {
   await User.deleteMany()
   await Shelter.deleteMany()
+  await Post.deleteMany()
   await new User(userZero).save()
   await new Shelter(shelterZero).save()
+  await new Post(postOne).save()
 }
 
 module.exports = {
@@ -69,5 +81,6 @@ module.exports = {
   shelterOneId,
   shelterOne,
   postZero,
-  postZeroId
+  postOne,
+  postOneId
 }
