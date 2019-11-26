@@ -7,7 +7,8 @@ const postService = require('../services/post/index')
 router.post('/posts', auth, upload.single('photo'), async (req, res) => {
   const data = {
     ...req.body,
-    photo: req.file.buffer
+    photo: req.file.buffer,
+    owner: req.user
   }
 
   try {

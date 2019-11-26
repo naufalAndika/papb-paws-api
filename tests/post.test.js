@@ -1,7 +1,7 @@
 const app = require('../src/app')
 const request = require('supertest')
 const Post = require('../src/models/post')
-const { setupDatabase, userZero } = require('./fixtures/db')
+const { setupDatabase, userZero, userZeroId } = require('./fixtures/db')
 
 const postZero = {
   desc: 'Kucing ini ditemukan di depan toko kue. Berwarna hijau army, sehat, manja, dan suka makan.',
@@ -33,4 +33,17 @@ test('Given post data when create post should create a new post', async () => {
     .field('foundAt', JSON.stringify(postZero.foundAt))
     .attach('photo', 'tests/fixtures/kucing.jpg')
     .expect(201)
+})
+
+test('Given post data when create post should create a new post with user owner', async () => {
+  const response = await request(app)
+    .post('/posts')
+    .set('Authorization', `Bearer ${userZero.tokens[0].token}`)
+    .field('desc', postZero.desc)
+    .field('sex', postZero.sex)
+    .field('foundAt', JSON.stringify(postZero.foundAt))
+    .attach('photo', 'tests/fixtures/kucing.jpg')
+    .expect(201)
+
+  expect(response.body.owner._id).toEqual(userZeroId.toString())
 })
