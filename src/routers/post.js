@@ -61,7 +61,7 @@ router.post('/posts/:id/adopt', async (req, res) => {
 
 router.patch('/posts/:id', async (req, res) => {
   try {
-    const response = await postService.setLocation(req.params.id, req.body.location)
+    const response = await postService.update(req.params.id, req.body)
     res.status(200).send(response)
   } catch (e) {
     res.status(500).send()
