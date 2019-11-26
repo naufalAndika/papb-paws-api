@@ -47,6 +47,12 @@ router.get('/posts', async (req, res) => {
 router.post('/posts/:id/adopt', async (req, res) => {
   try {
     const response = await postService.adopt(req.params.id)
+    const notFound = response === null    
+
+    if (notFound) {
+      res.status(404).send()
+    }
+
     res.status(200).send(response)
   } catch (e) {
     res.status(500).send()

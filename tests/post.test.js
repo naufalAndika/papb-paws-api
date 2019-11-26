@@ -87,7 +87,7 @@ test('Should adopt post', async () => {
 
 test('Given invalid id when adopt should return not found', async () => {
   await request(app)
-    .post('posts/5ddb2b31dc82781948c120b1/adopt')
+    .post('/posts/5ddb2b31dc82781948c120b1/adopt')
     .send()
     .expect(404)
 })
