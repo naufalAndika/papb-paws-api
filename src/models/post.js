@@ -12,10 +12,10 @@ const postSchema = mongoose.Schema({
   },
   foundAt: {
     lat: {
-      type: String
+      type: Number
     },
     long: {
-      type: String
+      type: Number
     }
   },
   owner: {

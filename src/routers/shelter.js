@@ -19,9 +19,7 @@ router.get('/shelters', async (req, res) => {
   try {
     const response = await shelterService.list()
     res.status(200).send(response)
-  } catch (e) {
-    console.log(e);
-    
+  } catch (e) {    
     res.status(500).send()
   }
 })
@@ -29,7 +27,6 @@ router.get('/shelters', async (req, res) => {
 router.get('/shelters/:id', async (req, res) => {
   try {
     const response = await shelterService.findById(req.params.id)
-    console.log(response)
     const notFound = response === null
 
     if (notFound) {
