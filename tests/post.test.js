@@ -66,3 +66,10 @@ test('Given invalid id when get post detail should return not found', async () =
     .send()
     .expect(404)  
 })
+
+test('Should return post list', async () => {
+  await request(app)
+    .get('/posts')
+    .send()
+    .expect(200)
+})
