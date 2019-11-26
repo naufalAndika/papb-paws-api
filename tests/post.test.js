@@ -77,8 +77,10 @@ test('Should return post list', async () => {
 })
 
 test('Should adopt post', async () => {
-  await request(app)
+  const response = await request(app)
     .post(`/posts/${postOneId}/adopt`)
     .send()
     .expect(200)
+
+  expect(response.body.adopted).toEqual(true)
 })
