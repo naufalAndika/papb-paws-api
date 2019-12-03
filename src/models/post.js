@@ -46,6 +46,14 @@ postSchema.methods.setLocation = async function (location) {
   await post.save()
 }
 
+postSchema.methods.toJSON = function () {
+  const post = this
+  const postObject = post.toObject()
+
+  delete postObject.photo
+  return postObject
+}
+
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post
